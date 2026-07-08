@@ -251,6 +251,16 @@ class ErpProduct extends ErpBaseModel
         return $this->belongsTo(ErpProductStatus::class, 'product_status_id');
     }
 
+    public function siteErpProducts()
+    {
+        return $this->hasMany(\App\Models\SiteErpProduct::class, 'erp_product_id');
+    }
+
+    public function sites()
+    {
+        return $this->belongsToMany(\App\Models\Site::class, 'site_erp_products', 'erp_product_id', 'site_id');
+    }
+
     public function type()
     {
         return $this->belongsTo(ErpProductType::class, 'product_type_id');

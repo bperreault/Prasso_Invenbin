@@ -184,9 +184,30 @@ class ErpProductResource extends Resource
 
     public static function getEloquentQuery(): Builder
     {
-        return parent::getEloquentQuery()
+        $query = parent::getEloquentQuery()
             ->withoutGlobalScopes([
                 SoftDeletingScope::class,
             ]);
+
+        $user = auth()->user();
+
+        if (! $user) {
+            return $query->whereRaw('1 = 0');
+        }
+
+        if (method_exists($user, 'isSuperAdmin') && $user->isSuperAdmin()) {
+            return $query;
+        }
+
+        $host = request()->getHttpHost();
+        $site = \App\Models\Site::getClient($host);
+
+        if (! $site) {
+            return $query->whereRaw('1 = 0');
+        }
+
+        return $query->whereHas('siteErpProducts', function ($q) use ($site) {
+            $q->where('site_id', $site->id);
+        });
     }
 }
