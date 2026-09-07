@@ -122,7 +122,7 @@ The Site Admin Menu system automatically shows relevant menu items based on pack
 - Requires MsgTeamSetting configuration
 - Set verification_status to 'verified' for full access
 - Configure help_contact_email for support
-- Twilio credentials in .env (TWILIO_ACCOUNT_SID, TWILIO_AUTH_TOKEN, TWILIO_PHONE_NUMBER)
+- AWS End User Messaging SMS credentials in .env (AWS_SMS_REGION, AWS_SMS_ACCESS_KEY_ID, AWS_SMS_SECRET_ACCESS_KEY, AWS_SMS_CONFIGURATION_SET, AWS_SMS_ORIGINATION_IDENTITY)
 
 ### Church Package
 
